@@ -54,15 +54,7 @@ app.get('/', (req, res) => {
 });
 
 
-const path = require('path');
 
-// Step 1: Serve the static files from the React app build directory
-app.use(express.static(path.join(__dirname, 'build')));
-
-// Step 2: Any request that doesn't match an API route, send back the React index.html
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
 
 
 
