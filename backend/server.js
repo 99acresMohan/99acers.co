@@ -121,18 +121,26 @@ app.delete('/api/properties/:id', async (req, res) => {
 
 // --- 4. ATLAS CONNECTION & SERVER START ---
 
-const PORT = 5000;
-const MONGO_URI = "mongodb+srv://9891992544:Mohan%4093777@cluster0.zkxiqer.mongodb.net/realestate?retryWrites=true&w=majority&appName=Cluster0";
+const PORT = process.env.PORT || 3000;
 
-// 1. Start the server immediately
-app.listen(PORT, "0.0.0.0", () => {
-    console.log(`🚀 JMD Backend active on http://127.0.0.1:${PORT}`);
-});
+// Encoded password for 'Mohan@93777'
+const encodedPassword = "Mohan%4093777";
+const atlasUri = `mongodb+srv://9891992544:${encodedPassword}@cluster0.zkxiqer.mongodb.net/realestate?retryWrites=true&w=majority&appName=Cluster0`;
 
-// 2. Connect to Atlas in the background
+// Prioritize Atlas connection
+const MONGO_URI = atlasUri || process.env.MONGODB_URI;
+
+console.log("🚀 Attempting to connect to Cloud MongoDB Atlas...");
+
 mongoose.connect(MONGO_URI)
-    .then(() => console.log("✅ MongoDB Atlas Connected: realestate DB"))
+    .then(() => {
+        app.listen(PORT, "0.0.0.0", () => {
+            console.log(`✅ SUCCESS: Connected to Atlas Cloud`);
+            console.log(`🚀 API active on port ${PORT}`);
+        });
+    })
     .catch(err => {
-        console.error("❌ Atlas Connection Error!");
-        console.error("Reason:", err.message);
+        console.error("❌ CONNECTION FAILED:");
+        console.error(err.message);
+        console.log("👉 Double-check MongoDB Atlas > Network Access > Allow Access from Anywhere (0.0.0.0/0)");
     });
