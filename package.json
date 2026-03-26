@@ -22,7 +22,8 @@
 "scripts": {
   "start": "node server.js",
   "build": "react-scripts build",
-  "frontend": "react-scripts start"
+  "client": "react-scripts start",
+  "install-all": "npm install && cd client && npm install" 
 }
   "eslintConfig": {
     "extends": [
