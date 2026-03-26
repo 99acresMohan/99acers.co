@@ -1,9 +1,7 @@
-﻿import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 
 const Login = () => {
     const [credentials, setCredentials] = useState({ mobile: '', password: '' });
-    const navigate = useNavigate();
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
