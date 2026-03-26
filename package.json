@@ -19,9 +19,10 @@
     "web-vitals": "^2.1.4",
     "yaml": "^2.8.3"
   },
- "scripts": {
-  "start": "node server.js", 
-  "build": "react-scripts build"
+"scripts": {
+  "start": "node server.js",
+  "build": "react-scripts build",
+  "frontend": "react-scripts start"
 }
   "eslintConfig": {
     "extends": [
